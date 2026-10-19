@@ -1,0 +1,10 @@
+{
+  "name": "Cummins Trivia",
+  "short_name": "Trivia",
+  "start_url": "./",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#DA291C",
+  "icons": []
+}

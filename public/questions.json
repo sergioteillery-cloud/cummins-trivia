@@ -1,0 +1,235 @@
+{
+  "config": {
+    "secondsPerQuestion": 30,
+    "questionsPerGame": 3,
+    "shuffleQuestions": true,
+    "idleResetSeconds": 30,
+    "resultResetSeconds": 15,
+    "adminPin": "1234",
+    "prizeMinScore": 1,
+    "prizeText": "¡Muestra esta pantalla al promotor para reclamar tu premio!",
+    "bankVersion": "2026-10-19-expoinclusion"
+  },
+  "questions": [
+    {
+      "category": "Situaciones cotidianas",
+      "question": "Si ves a una persona que parece necesitar ayuda, ¿qué deberías hacer?",
+      "options": [
+        "Ayudar sin preguntar",
+        "Preguntar si necesita ayuda",
+        "Decidir por ella"
+      ],
+      "correct": 1,
+      "explanation": "Preguntar primero respeta la autonomía de cada persona y evita asumir que necesita ayuda."
+    },
+    {
+      "category": "Situaciones cotidianas",
+      "question": "¿Cuál de estas acciones demuestra empatía?",
+      "options": [
+        "Escuchar a alguien que está pasando por un momento difícil",
+        "Decirle que no es importante",
+        "Comparar sus problemas con los tuyos"
+      ],
+      "correct": 0,
+      "explanation": "Escuchar con atención y sin minimizar lo que vive otra persona es una forma de demostrar empatía."
+    },
+    {
+      "category": "Situaciones cotidianas",
+      "question": "¿Qué deberías hacer si ves que alguien está siendo excluido de una actividad?",
+      "options": [
+        "Invitarlo a participar y considerar sus necesidades",
+        "Ignorar la situación",
+        "Suponer que no quiere participar"
+      ],
+      "correct": 0,
+      "explanation": "Invitar a participar y considerar las necesidades de cada persona ayuda a evitar la exclusión."
+    },
+    {
+      "category": "Situaciones cotidianas",
+      "question": "Si una persona se desplaza con silla de ruedas, ¿qué es importante recordar?",
+      "options": [
+        "Siempre necesita que la empujen",
+        "No se debe mover su silla sin permiso",
+        "No puede participar en actividades grupales"
+      ],
+      "correct": 1,
+      "explanation": "La silla de ruedas es parte del espacio personal de quien la utiliza; moverla requiere su consentimiento."
+    },
+    {
+      "category": "Mitos y realidades",
+      "question": "¿Todas las discapacidades son visibles?",
+      "options": [
+        "Sí, siempre",
+        "No, algunas no son evidentes a simple vista",
+        "Solo las discapacidades físicas son invisibles"
+      ],
+      "correct": 1,
+      "explanation": "Algunas discapacidades no se identifican a simple vista, por lo que no deben hacerse suposiciones."
+    },
+    {
+      "category": "Mitos y realidades",
+      "question": "¿Las personas con discapacidad pueden trabajar en distintas industrias?",
+      "options": [
+        "Sí, según sus habilidades y los requisitos del cargo",
+        "Solo en oficinas",
+        "Solo desde sus casas"
+      ],
+      "correct": 0,
+      "explanation": "Las oportunidades laborales dependen de las competencias y requisitos del cargo, no de estereotipos sobre discapacidad."
+    },
+    {
+      "category": "Mitos y realidades",
+      "question": "¿Qué significa que un espacio sea accesible?",
+      "options": [
+        "Que sea muy grande",
+        "Que tenga mucha decoración",
+        "Que pueda ser utilizado por personas con distintas necesidades"
+      ],
+      "correct": 2,
+      "explanation": "Un espacio accesible reduce barreras y facilita su uso por personas con distintas necesidades."
+    },
+    {
+      "category": "Mitos y realidades",
+      "question": "¿Cuál de estas afirmaciones sobre las personas mayores es correcta?",
+      "options": [
+        "No pueden aprender cosas nuevas",
+        "Pueden seguir aprendiendo y desarrollando habilidades",
+        "No pueden trabajar con tecnología"
+      ],
+      "correct": 1,
+      "explanation": "La capacidad de aprender no desaparece por la edad; las personas pueden adquirir habilidades durante toda la vida."
+    },
+    {
+      "category": "Mitos y realidades",
+      "question": "¿Qué afirmación es correcta sobre las capacidades de las personas?",
+      "options": [
+        "Todas tienen las mismas habilidades",
+        "La apariencia permite saber lo que alguien puede hacer",
+        "Cada persona tiene habilidades y fortalezas diferentes"
+      ],
+      "correct": 2,
+      "explanation": "Las habilidades y fortalezas varían entre personas y no pueden deducirse únicamente de su apariencia."
+    },
+    {
+      "category": "Mitos y realidades",
+      "question": "¿Cuál de estas acciones mejora la accesibilidad de un lugar?",
+      "options": [
+        "Bloquear los pasillos",
+        "Mantener despejadas las rutas de circulación",
+        "Colocar obstáculos cerca de las entradas"
+      ],
+      "correct": 1,
+      "explanation": "Las rutas despejadas facilitan la circulación y reducen obstáculos para personas con distintas necesidades de movilidad."
+    },
+    {
+      "category": "Mitos y realidades",
+      "question": "¿Quiénes se benefician de los espacios accesibles?",
+      "options": [
+        "Solo las personas que utilizan silla de ruedas",
+        "Solo las personas mayores",
+        "Personas con distintas necesidades y circunstancias"
+      ],
+      "correct": 2,
+      "explanation": "La accesibilidad también beneficia, por ejemplo, a personas mayores, con lesiones temporales o que trasladan coches."
+    },
+    {
+      "category": "Talento y trabajo",
+      "question": "¿Qué debería importar al evaluar a una persona para un trabajo?",
+      "options": [
+        "Sus habilidades y los requisitos del cargo",
+        "Su apariencia física",
+        "Que tenga los mismos gustos que el entrevistador"
+      ],
+      "correct": 0,
+      "explanation": "Una evaluación laboral justa se centra en las competencias y los requisitos pertinentes para desempeñar el cargo."
+    },
+    {
+      "category": "Talento y trabajo",
+      "question": "¿Qué significa tener igualdad de oportunidades laborales?",
+      "options": [
+        "Que todas las personas hagan exactamente lo mismo",
+        "Contar con procesos justos y sin discriminación",
+        "Que todos reciban el mismo cargo"
+      ],
+      "correct": 1,
+      "explanation": "La igualdad de oportunidades requiere procesos justos y libres de discriminación; no significa asignar el mismo puesto a todos."
+    },
+    {
+      "category": "Talento y trabajo",
+      "question": "¿Qué caracteriza a un lugar de trabajo inclusivo?",
+      "options": [
+        "Que todos tengan la misma personalidad",
+        "Que no se permitan diferencias",
+        "Que las personas sean respetadas y puedan participar"
+      ],
+      "correct": 2,
+      "explanation": "Un ambiente inclusivo promueve el respeto, la participación y la posibilidad de contribuir de cada integrante."
+    },
+    {
+      "category": "Talento y trabajo",
+      "question": "¿Cuál es una buena actitud al aprender una tarea nueva?",
+      "options": [
+        "Hacer preguntas y estar dispuesto a aprender",
+        "Fingir que ya sabes todo",
+        "Rechazar cualquier orientación"
+      ],
+      "correct": 0,
+      "explanation": "Hacer preguntas y aceptar orientación facilita el aprendizaje y ayuda a realizar las tareas de forma adecuada."
+    },
+    {
+      "category": "Cummins",
+      "question": "¿Qué productos y soluciones ofrece Cummins?",
+      "options": [
+        "Solo automóviles y motocicletas",
+        "Motores, generadores, repuestos y servicios",
+        "Electrodomésticos y productos de limpieza"
+      ],
+      "correct": 1,
+      "explanation": "Cummins ofrece un amplio portafolio de motores, grupos electrógenos, repuestos, componentes y servicios de mantenimiento para diferentes aplicaciones."
+    },
+    {
+      "category": "Cummins",
+      "question": "¿En cuáles de estas industrias está presente Cummins?",
+      "options": [
+        "Moda y cosmética",
+        "Minería, transporte y generación de energía",
+        "Joyería y entretenimiento"
+      ],
+      "correct": 1,
+      "explanation": "Las soluciones de Cummins están presentes en distintas industrias, como minería, transporte, construcción y generación de energía."
+    },
+    {
+      "category": "Cummins",
+      "question": "¿Cuál de estos productos puedes encontrar en el portafolio de Cummins?",
+      "options": [
+        "Filtros, lubricantes y repuestos para motores",
+        "Televisores y computadores",
+        "Electrodomésticos de cocina"
+      ],
+      "correct": 0,
+      "explanation": "Además de motores y generadores, Cummins comercializa filtros, lubricantes, repuestos y componentes para el mantenimiento de equipos."
+    },
+    {
+      "category": "Cummins",
+      "question": "¿Qué servicios ofrece Cummins a sus clientes?",
+      "options": [
+        "Mantenimiento, soporte técnico y suministro de repuestos",
+        "Fabricación de juguetes",
+        "Organización de vuelos comerciales"
+      ],
+      "correct": 0,
+      "explanation": "Cummins entrega soporte a sus clientes mediante servicios de mantenimiento, asistencia técnica y suministro de repuestos para distintas líneas de productos."
+    },
+    {
+      "category": "Cummins",
+      "question": "¿Qué frase refleja mejor el valor de la diversidad en Cummins?",
+      "options": [
+        "Todos debemos ser iguales",
+        "Ganando con el poder de la diferencia",
+        "Las ideas diferentes no son necesarias"
+      ],
+      "correct": 1,
+      "explanation": "«Ganando con el poder de la diferencia» expresa el valor que Cummins atribuye a las distintas perspectivas, experiencias y capacidades de las personas."
+    }
+  ]
+}
