@@ -30,3 +30,11 @@ El PIN es visible en el código; sirve para evitar toques accidentales, no como 
 Cada push a `main` publica en GitHub Pages mediante `.github/workflows/deploy.yml`.
 
 El logo y la marca Cummins pertenecen a Cummins Inc.
+
+## Versión local para totem Windows
+
+```bash
+npm run build:kiosk   # genera kiosk-dist/Cummins-Trivia-Windows.zip
+```
+
+El paquete incluye un servidor local (PowerShell, sin instalar nada), scripts `.bat` para abrir en modo kiosco y autoinicio, y un `LEEME-WINDOWS.txt` con las instrucciones.
