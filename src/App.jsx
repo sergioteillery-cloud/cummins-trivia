@@ -9,11 +9,13 @@ import Game from './components/Game.jsx'
 import Result from './components/Result.jsx'
 import Admin from './components/Admin.jsx'
 import { isMuted, setMuted, sfx } from './audio.js'
+import { isVoiceEnabled, setVoiceEnabled, stopSpeech } from './speech.js'
 import { ThemeContext, loadTheme, saveTheme } from './theme.js'
 import { loadBank, loadCollect, resetBank, saveBank, saveCollect, saveLead, loadPerGame, savePerGame, loadUsed, saveUsed } from './storage.js'
 import bundled from '../public/questions.json'
 
-const DEFAULT_CONFIG = { secondsPerQuestion: 30, questionsPerGame: 3, shuffleQuestions: true, idleResetSeconds: 30, resultResetSeconds: 15, adminPin: '1234', prizeMinScore: 1, prizeText: '¡Muestra esta pantalla al promotor para reclamar tu premio!' }
+// Sin tiempos visibles en el juego; solo un reinicio de seguridad si alguien abandona el tótem a mitad de camino
+const DEFAULT_CONFIG = { questionsPerGame: 3, shuffleQuestions: true, registerResetSeconds: 90, playingResetSeconds: 300, resultResetSeconds: 180, adminPin: '1234', prizeMinScore: 1, prizeText: '¡Reclama tu premio en nuestro stand!', noPrizeText: '¡Te esperamos en una próxima oportunidad!' }
 
 // Máquina de estados global: idle -> register -> playing -> result
 const initial = { screen: 'idle', player: null, questions: [], result: null }
@@ -40,6 +42,7 @@ export default function App() {
   const [original, setOriginal] = useState([])
   const [muted, setMutedState] = useState(isMuted())
   const [admin, setAdmin] = useState(false)
+  const [voice, setVoiceState] = useState(isVoiceEnabled())
   const idleTimer = useRef(null)
 
   // Carga de questions.json (editable sin tocar el código)
@@ -49,14 +52,13 @@ export default function App() {
   }, [])
 
   const { config } = data
-  const reset = useCallback(() => { setAdmin(false); dispatch({ type: 'reset' }) }, [])
+  const reset = useCallback(() => { stopSpeech(); setAdmin(false); dispatch({ type: 'reset' }) }, [])
 
   // Reset por inactividad en cualquier pantalla distinta de idle
   const armIdle = useCallback(() => {
     clearTimeout(idleTimer.current)
     if (state.screen === 'idle' || admin) return
-    // En juego, el tiempo de reinicio debe superar el reloj de la pregunta + el tiempo de lectura de la justificación
-    const secs = state.screen === 'result' ? config.resultResetSeconds : state.screen === 'playing' ? config.secondsPerQuestion + 40 : config.idleResetSeconds
+    const secs = state.screen === 'result' ? config.resultResetSeconds : state.screen === 'playing' ? config.playingResetSeconds : config.registerResetSeconds
     idleTimer.current = setTimeout(reset, secs * 1000)
   }, [state.screen, admin, config, reset])
   useEffect(() => { armIdle(); return () => clearTimeout(idleTimer.current) }, [armIdle])
@@ -93,7 +95,8 @@ export default function App() {
   const restoreBank = () => { resetBank(); setData((d) => ({ ...d, questions: original })) }
   const chooseCollect = (v) => { saveCollect(v); setCollect(v) }
   const chooseTheme = (t) => { saveTheme(t); setTheme(t) }
-  const toggleMute = () => { const v = !muted; setMuted(v); setMutedState(v) }
+  const toggleMute = () => { const v = !muted; setMuted(v); setMutedState(v); if (v) stopSpeech() }
+  const chooseVoice = (v) => { setVoiceEnabled(v); setVoiceState(v) }
 
   return (
     <div onPointerDown={armIdle} style={{ position: 'fixed', inset: 0, background: theme === 'light' ? '#fff' : '#000' }}>
@@ -102,10 +105,10 @@ export default function App() {
         <Background intensity={state.screen === 'playing' ? 0.6 : 1} />
         <AnimatePresence mode="wait">
           <motion.div key={state.screen} style={{ position: 'absolute', inset: 0 }} initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -40 }} transition={{ duration: 0.3 }}>
-            {state.screen === 'idle' && <Attract perGame={Math.min(n_(), data.questions.filter((q) => q.active !== false).length) || n_()} ready={data.questions.some((q) => q.active !== false)} onStart={() => { sfx.start(); if (collect) dispatch({ type: 'register' }); else startGame({ name: 'Anónimo', email: '', phone: '', company: '', anonymous: true }) }} />}
+            {state.screen === 'idle' && <Attract prizeMinScore={config.prizeMinScore} perGame={Math.min(n_(), data.questions.filter((q) => q.active !== false).length) || n_()} ready={data.questions.some((q) => q.active !== false)} onStart={() => { sfx.start(); if (collect) dispatch({ type: 'register' }); else startGame({ name: 'Anónimo', email: '', phone: '', company: '', anonymous: true }) }} />}
             {state.screen === 'register' && <Register onSubmit={startGame} onBack={reset} />}
-            {state.screen === 'playing' && <Game questions={state.questions} secondsPer={config.secondsPerQuestion} onFinish={finishGame} />}
-            {state.screen === 'result' && <Result result={state.result} player={state.player} prizeText={config.prizeText} prizeMinScore={config.prizeMinScore} seconds={config.resultResetSeconds} onDone={reset} />}
+            {state.screen === 'playing' && <Game questions={state.questions} onFinish={finishGame} />}
+            {state.screen === 'result' && <Result result={state.result} prizeText={config.prizeText} noPrizeText={config.noPrizeText} prizeMinScore={config.prizeMinScore} onDone={reset} />}
           </motion.div>
         </AnimatePresence>
 
@@ -114,7 +117,7 @@ export default function App() {
         <button aria-label={muted ? 'Activar sonido' : 'Silenciar'} onClick={toggleMute} style={{ position: 'absolute', top: 24, left: 24, zIndex: 50, width: 88, height: 88, borderRadius: 28, background: 'var(--chip)', color: 'var(--chip-fg)', display: 'grid', placeItems: 'center' }}>
           {muted ? <VolumeX size={44} /> : <Volume2 size={44} />}
         </button>
-        {admin && <Admin pin={config.adminPin} bank={data.questions} perGame={config.questionsPerGame} onBank={updateBank} onRestore={restoreBank} theme={theme} onTheme={chooseTheme} collect={collect} onCollect={chooseCollect} perGame={n_()} onPerGame={choosePerGame} usedCount={used.filter((k) => data.questions.some((q) => q.active !== false && q.question === k)).length} onResetDeck={resetDeck} onClose={() => setAdmin(false)} />}
+        {admin && <Admin pin={config.adminPin} bank={data.questions} voice={voice} onVoice={chooseVoice} onBank={updateBank} onRestore={restoreBank} theme={theme} onTheme={chooseTheme} collect={collect} onCollect={chooseCollect} perGame={n_()} onPerGame={choosePerGame} usedCount={used.filter((k) => data.questions.some((q) => q.active !== false && q.question === k)).length} onResetDeck={resetDeck} onClose={() => setAdmin(false)} />}
       </Stage>
       </ThemeContext.Provider>
     </div>

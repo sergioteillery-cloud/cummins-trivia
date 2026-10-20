@@ -1,0 +1,4 @@
+Coloca aquí los archivos de la tipografía Cummins Innova (woff2, otf o ttf) con estos nombres:
+  CumminsInnovaText-Light, CumminsInnovaText-Regular, CumminsInnovaText-SemiBold, CumminsInnovaDisplay-Bold
+Si la fuente ya está instalada en el equipo, no hace falta copiarla aquí.
+Si no hay archivos, la app usa Roboto (alternativa aprobada en el manual de marca).

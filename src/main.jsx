@@ -7,6 +7,8 @@ import '@fontsource/roboto/700.css'
 import '@fontsource/roboto/900.css'
 import '@fontsource/roboto/700-italic.css'
 import './index.css'
+import { loadBrandFont } from './fonts.js'
 import App from './App.jsx'
 
+loadBrandFont()
 createRoot(document.getElementById('root')).render(<App />)

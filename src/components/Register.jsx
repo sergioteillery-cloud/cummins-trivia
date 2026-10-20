@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { ArrowLeft, Check, Play } from 'lucide-react'
 import TouchKeyboard from './TouchKeyboard.jsx'
 import { sfx } from '../audio.js'
+import { useNarration } from '../speech.js'
+import ListenButton from './ListenButton.jsx'
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
@@ -18,6 +20,7 @@ export default function Register({ onSubmit, onBack }) {
   ]
   const append = (c) => setV((s) => ({ ...s, [active]: (s[active] + c).slice(0, 60) }))
   const back = () => setV((s) => ({ ...s, [active]: s[active].slice(0, -1) }))
+  const listen = useNarration('Regístrate para jugar. Escribe tu nombre y tu correo con el teclado de la pantalla. Luego marca la casilla para aceptar los términos y toca el botón Comenzar, abajo.')
   const valid = v.name.trim().length > 1 && EMAIL_RE.test(v.email.trim()) && consent
 
   const submit = () => onSubmit({ name: v.name.trim(), email: v.email.trim().toLowerCase(), phone: v.phone.trim(), company: v.company.trim() })
@@ -30,6 +33,7 @@ export default function Register({ onSubmit, onBack }) {
           <div style={{ fontSize: 72, fontWeight: 900, lineHeight: 1 }}>¡Regístrate <span style={{ color: '#DA291C' }}>y juega!</span></div>
           <div style={{ fontSize: 34, color: 'var(--muted)', marginTop: 8 }}>Solo toma 10 segundos</div>
         </div>
+        <ListenButton onListen={listen} label="Audio" style={{ marginLeft: 'auto', height: 84, padding: '0 28px', fontSize: 32 }} />
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>

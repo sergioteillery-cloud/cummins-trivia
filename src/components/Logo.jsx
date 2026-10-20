@@ -1,22 +1,16 @@
-// Marcador de posición: colocar el arte oficial del Brand Book en public/logo-white.svg.
-// El manual indica no recrear ni alterar el logo; el texto es solo un fallback.
-import { useState } from 'react'
-import logoWhite from '../assets/logo-white.svg'
-import logoBlack from '../assets/logo-black.svg'
+// Logos oficiales: Cummins Chile y DEI (Diversidad | Equidad | Inclusión), en versión para fondo claro y oscuro.
+import chileLight from '../assets/cummins-chile-light.png'
+import chileDark from '../assets/cummins-chile-dark.png'
+import deiLight from '../assets/dei-light.png'
+import deiDark from '../assets/dei-dark.png'
 import { useTheme } from '../theme.js'
 
-export default function Logo({ height = 60, onRed = false }) {
-  const theme = useTheme()
-  const logoUrl = onRed || theme === 'dark' ? logoWhite : logoBlack
-  const [ok, setOk] = useState(true)
-  if (ok) return <img src={logoUrl} alt="Cummins" style={{ height }} onError={() => setOk(false)} />
-  return <span style={{ fontWeight: 900, fontSize: height * 0.9, letterSpacing: '.06em', color: onRed || theme === 'dark' ? '#fff' : '#000' }}>CUMMINS</span>
-}
-
-export function LogoPin({ size = 110 }) {
+export default function LogoHeader({ height = 130 }) {
+  const dark = useTheme() === 'dark'
   return (
-    <div style={{ width: size, height: size, borderRadius: 16, background: '#DA291C', display: 'grid', placeItems: 'center' }}>
-      <Logo height={size * 0.57} onRed />
+    <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <img src={dark ? chileDark : chileLight} alt="Cummins Chile" style={{ height }} />
+      <img src={dark ? deiDark : deiLight} alt="DEI: Diversidad, Equidad, Inclusión" style={{ height: height * 1.05 }} />
     </div>
   )
 }

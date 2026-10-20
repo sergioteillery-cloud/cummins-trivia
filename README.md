@@ -15,6 +15,13 @@ npm run build    # producción (carpeta dist/)
 Se editan en `public/questions.json` (preguntas de 2 a 4 opciones, `correct` = posición desde 0, `explanation` opcional).
 Si cambias las preguntas, cambia también `config.bankVersion` para que los dispositivos descarten el banco editado localmente.
 
+## Accesibilidad
+
+- Lectura en voz alta de cada pantalla (Web Speech API, voces en español del equipo) y botón **Repetir audio**.
+- Sin límite de tiempo: el juego avanza solo al tocar un botón.
+- Botones A/B/C grandes abajo, para responder arriba o abajo según la estatura.
+- Tipografía **Cummins Innova** si está instalada o en `public/fonts/`; si no, Roboto.
+
 ## Administración
 
 Botón **Admin** (arriba a la derecha), PIN por defecto `1234` (`config.adminPin`).

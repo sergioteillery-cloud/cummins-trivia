@@ -1,14 +1,15 @@
 {
   "config": {
-    "secondsPerQuestion": 30,
     "questionsPerGame": 3,
     "shuffleQuestions": true,
-    "idleResetSeconds": 30,
-    "resultResetSeconds": 15,
+    "resultResetSeconds": 180,
     "adminPin": "1234",
     "prizeMinScore": 1,
-    "prizeText": "¡Muestra esta pantalla al promotor para reclamar tu premio!",
-    "bankVersion": "2026-10-19-expoinclusion"
+    "prizeText": "¡Reclama tu premio en nuestro stand!",
+    "bankVersion": "2026-10-19-expoinclusion",
+    "registerResetSeconds": 90,
+    "playingResetSeconds": 300,
+    "noPrizeText": "¡Te esperamos en una próxima oportunidad!"
   },
   "questions": [
     {
