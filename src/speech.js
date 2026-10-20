@@ -32,7 +32,7 @@ export const listRecorded = () => Object.entries(recorded).map(([id, v]) => ({ i
 const activeRecorded = () => {
   if (chosenName?.startsWith('rec:')) return recorded[chosenName.slice(4)] ? chosenName.slice(4) : null
   if (chosenName) return null // eligieron una voz del navegador
-  return recorded.catalina ? 'catalina' : Object.keys(recorded)[0] || null
+  return recorded.daniela ? 'daniela' : Object.keys(recorded)[0] || null
 }
 
 // ---------- Voces del navegador ----------

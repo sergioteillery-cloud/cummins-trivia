@@ -24,7 +24,8 @@ CAMBIAR PREGUNTAS DESDE ARCHIVO
 - Mas simple: usa el panel Admin > Preguntas.
 
 LECTURA EN VOZ ALTA
-- El juego trae la voz "Daniela" grabada: suena natural y funciona sin internet.
+- El juego trae 3 voces grabadas (Daniela, Claude y Ald): suenan naturales y funcionan sin internet.
+  Por defecto usa Daniela; se cambia en Admin > Ajustes > Lectura en voz alta > Voz.
 - Las preguntas nuevas o editadas en el admin se leen con la voz del navegador
   (con internet, Edge usa voces "Natural"; sin internet, las basicas de Windows).
 - Para escoger otra voz: Admin > Ajustes > Lectura en voz alta > Voz.

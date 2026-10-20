@@ -32,7 +32,10 @@ npm run voz   # requiere Piper y la voz en D:\TriviaVoz (o PIPER_DIR) y ffmpeg
 
 Vuelve a ejecutarlo cuando cambies las preguntas en `public/questions.json`. Lo que no tenga audio grabado se lee con la voz del navegador.
 
-**Créditos de la voz:** "Daniela" (es_AR, calidad alta) de [rhasspy/piper-voices](https://huggingface.co/rhasspy/piper-voices), entrenada con el dataset [OpenSLR 61](https://www.openslr.org/61/). Licencia [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); los audios generados en `public/voz/` se comparten bajo la misma licencia.
+**Créditos de las voces** (todas de [rhasspy/piper-voices](https://huggingface.co/rhasspy/piper-voices)):
+- **Daniela** (es_AR, calidad alta), entrenada con el dataset [OpenSLR 61](https://www.openslr.org/61/). Licencia [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); sus audios en `public/voz/daniela/` se comparten bajo la misma licencia.
+- **Claude** (es_MX, calidad alta). Licencia Apache 2.0.
+- **Ald** (es_MX, calidad media). Licencia Unlicense (dominio público).
 
 ## Administración
 

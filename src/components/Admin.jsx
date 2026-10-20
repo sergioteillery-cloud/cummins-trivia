@@ -144,7 +144,7 @@ function VoicePicker() {
           </button>
         )
       })}
-      {recorded.length > 0 && <div style={{ fontSize: 26, color: '#A9A8A6', lineHeight: 1.3 }}>Las preguntas nuevas o editadas en el admin no tienen audio grabado: se leen con la voz del navegador hasta volver a generar los audios (npm run voz).<br />Créditos: voz "Daniela" de Piper (rhasspy/piper-voices), entrenada con el dataset OpenSLR 61. Licencia CC BY-SA 4.0.</div>}
+      {recorded.length > 0 && <div style={{ fontSize: 26, color: '#A9A8A6', lineHeight: 1.3 }}>Las preguntas nuevas o editadas en el admin no tienen audio grabado: se leen con la voz del navegador hasta volver a generar los audios (npm run voz).<br />Créditos: voces de Piper (rhasspy/piper-voices). Daniela: dataset OpenSLR 61, licencia CC BY-SA 4.0. Claude: Apache 2.0. Ald: Unlicense.</div>}
       {voices.map((v) => {
         const natural = isNatural(v)
         const on = !auto && current === v.name

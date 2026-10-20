@@ -11,7 +11,11 @@ import { allSegments, segmentKey } from '../src/narration.js'
 const PIPER_DIR = process.env.PIPER_DIR || 'D:\\TriviaVoz'
 const VOICES = {
   // Voz "Daniela" (es_AR, calidad alta): https://huggingface.co/rhasspy/piper-voices — licencia CC BY-SA 4.0, dataset OpenSLR 61
-  daniela: { model: 'es_AR-daniela-high', label: 'Daniela', lengthScale: 1.15 },
+  daniela: { model: 'es_AR-daniela-high', label: 'Daniela (Argentina)', lengthScale: 1.15 },
+  // Voz "Claude" (es_MX, calidad alta) — licencia Apache 2.0
+  claude: { model: 'es_MX-claude-high', label: 'Claude (México)', lengthScale: 1.05 },
+  // Voz "Ald" (es_MX, calidad media) — licencia Unlicense (dominio público)
+  ald: { model: 'es_MX-ald-medium', label: 'Ald (México)', lengthScale: 1.05 },
 }
 const DEFAULTS = { prizeMinScore: 1, prizeText: '¡Reclama tu premio en nuestro stand!', noPrizeText: '¡Te esperamos en una próxima oportunidad!' }
 
@@ -42,8 +46,10 @@ function runPiper(model, lengthScale, jobs) {
 
 const manifestPath = 'public/voz/manifest.json'
 const manifest = { voices: {} }
+const only = process.argv.slice(2).filter((a) => VOICES[a])
 
 for (const [id, { model, label, lengthScale }] of Object.entries(VOICES)) {
+  if (only.length && !only.includes(id)) continue
   const dir = `public/voz/${id}`
   mkdirSync(dir, { recursive: true })
   const tmp = join(tmpdir(), `trivia-voz-${id}`)
