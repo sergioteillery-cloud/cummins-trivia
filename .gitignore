@@ -4,3 +4,5 @@ dist-artifact
 .claude
 *.log
 kiosk-dist
+.env*
+!.env.example

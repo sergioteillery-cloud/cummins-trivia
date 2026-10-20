@@ -7,7 +7,8 @@
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview --host",
-    "build:kiosk": "vite build && node scripts/build-kiosk.mjs"
+    "build:kiosk": "vite build && node scripts/build-kiosk.mjs",
+    "voz": "node scripts/generate-voice.mjs"
   },
   "dependencies": {
     "@fontsource/roboto": "^5.1.0",

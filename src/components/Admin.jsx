@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Check, Download, Pencil, Plus, RotateCcw, Trash2, X } from 'lucide-react'
 import { THEMES } from '../theme.js'
-import { getChosenName, getVoiceName, isNatural, listVoices, onVoicesChanged, setVoiceName, speak, speechSupported } from '../speech.js'
+import { getChosenName, getVoiceName, isNatural, listRecorded, listVoices, onVoicesChanged, setVoiceName, speak, speechSupported } from '../speech.js'
+import { SAMPLE } from '../narration.js'
 import { clearLeads, downloadCsv, leadsToCsv, loadLeads } from '../storage.js'
 
 const EMPTY_Q = { question: '', options: ['', '', '', ''], correct: 0, explanation: '', active: true }
@@ -115,17 +116,15 @@ function Settings({ bank, perGame, onPerGame, usedCount, onResetDeck, theme, onT
   )
 }
 
-const SAMPLE = 'Hola, te damos la bienvenida a la trivia de Cummins Chile. Ganando con el poder de la diferencia.'
-
 // Selector de voz: las "Natural" suenan más humanas (requieren internet); las instaladas funcionan sin conexión
 function VoicePicker() {
   const [voices, setVoices] = useState(listVoices())
+  const [recorded, setRecorded] = useState(listRecorded())
   const [, force] = useState(0)
-  useEffect(() => onVoicesChanged(() => setVoices(listVoices())), [])
+  useEffect(() => onVoicesChanged(() => { setVoices(listVoices()); setRecorded(listRecorded()) }), [])
   const current = getVoiceName()
   const auto = !getChosenName()
   const choose = (name) => { setVoiceName(name); force((n) => n + 1); if (name) speak(SAMPLE) }
-  if (!voices.length) return <div style={{ fontSize: 30, color: '#DA291C' }}>No hay voces en español en este equipo.</div>
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div style={{ fontSize: 34, fontWeight: 700, marginTop: 6 }}>Voz</div>
@@ -133,6 +132,19 @@ function VoicePicker() {
         <span>Automática <span style={{ color: '#A9A8A6', fontWeight: 400 }}>(la más natural disponible)</span></span>
         {auto && <Check size={40} color="#30A566" strokeWidth={4} />}
       </button>
+      {recorded.map((r) => {
+        const on = !auto && current === `rec:${r.id}`
+        return (
+          <button key={r.id} onClick={() => choose(`rec:${r.id}`)} style={voiceRow(on)}>
+            <span style={{ display: 'flex', flexDirection: 'column', gap: 6, textAlign: 'left' }}>
+              <span>{r.label}</span>
+              <span style={{ fontSize: 26, fontWeight: 700, color: '#30A566' }}>Grabada · natural y sin internet · {r.count} audios</span>
+            </span>
+            {on && <Check size={40} color="#30A566" strokeWidth={4} />}
+          </button>
+        )
+      })}
+      {recorded.length > 0 && <div style={{ fontSize: 26, color: '#A9A8A6', lineHeight: 1.3 }}>Las preguntas nuevas o editadas en el admin no tienen audio grabado: se leen con la voz del navegador hasta volver a generar los audios (npm run voz).<br />Créditos: voz "Daniela" de Piper (rhasspy/piper-voices), entrenada con el dataset OpenSLR 61. Licencia CC BY-SA 4.0.</div>}
       {voices.map((v) => {
         const natural = isNatural(v)
         const on = !auto && current === v.name
@@ -146,7 +158,7 @@ function VoicePicker() {
           </button>
         )
       })}
-      {!voices.some(isNatural) && <div style={{ fontSize: 28, color: '#F5A524', lineHeight: 1.3 }}>Este navegador no ofrece voces naturales. Ábrelo en Microsoft Edge con internet para usar las voces Catalina o Lorenzo (Chile).</div>}
+      {!recorded.length && !voices.some(isNatural) && <div style={{ fontSize: 28, color: '#F5A524', lineHeight: 1.3 }}>Este navegador no ofrece voces naturales. Ábrelo en Microsoft Edge con internet para usar las voces Catalina o Lorenzo (Chile).</div>}
     </div>
   )
 }

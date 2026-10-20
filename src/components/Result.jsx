@@ -4,25 +4,24 @@ import confetti from 'canvas-confetti'
 import { Check, CircleCheckBig, Gift, RefreshCw, Star, Trophy } from 'lucide-react'
 import ListenButton from './ListenButton.jsx'
 import { useNarration } from '../speech.js'
+import * as N from '../narration.js'
 
-// Mensaje e ícono según el puntaje (0 / algunos / la mayoría / todos)
-function tier(score, total) {
-  if (score === 0) return { title: '¡Gracias por participar!', msg: 'Cada intento es una oportunidad para aprender.', icon: <RefreshCw size={150} color="#F5A524" strokeWidth={2.6} /> }
-  if (score >= total) return { title: '¡Felicitaciones, puntaje perfecto!', msg: '¡Demostraste el poder de la diferencia!', icon: <Trophy size={150} color="#F5A524" fill="#FFD36B" strokeWidth={2} /> }
-  if (score / total >= 0.6) return { title: '¡Gran resultado!', msg: '¡Vas por buen camino! Juntos hacemos la diferencia.', icon: <CircleCheckBig size={150} color="#30A566" strokeWidth={2.6} /> }
-  return {
-    title: '¡Buen trabajo!', msg: '¡Cada acierto cuenta y tú ya ganaste!',
-    icon: <span style={{ position: 'relative', display: 'inline-grid', placeItems: 'center' }}><Star size={150} color="#2F7FC1" fill="#55A1D3" strokeWidth={2} /><Check size={60} color="#fff" strokeWidth={5} style={{ position: 'absolute', top: 50 }} /></span>,
-  }
+// Ícono según el tramo de puntaje (los textos están en narration.js)
+const ICONS = {
+  zero: <RefreshCw size={150} color="#F5A524" strokeWidth={2.6} />,
+  perfect: <Trophy size={150} color="#F5A524" fill="#FFD36B" strokeWidth={2} />,
+  great: <CircleCheckBig size={150} color="#30A566" strokeWidth={2.6} />,
+  good: <span style={{ position: 'relative', display: 'inline-grid', placeItems: 'center' }}><Star size={150} color="#2F7FC1" fill="#55A1D3" strokeWidth={2} /><Check size={60} color="#fff" strokeWidth={5} style={{ position: 'absolute', top: 50 }} /></span>,
 }
 
 export default function Result({ result, prizeText, noPrizeText, prizeMinScore = 1, onDone }) {
   const wonPrize = result.score >= prizeMinScore // premio si consigue al menos 1 respuesta correcta
-  const t = tier(result.score, result.total)
+  const t = { ...N.tierFor(result.score, result.total) }
+  t.icon = ICONS[t.key]
   const card = wonPrize ? prizeText : noPrizeText
   const points = `${result.score} de ${result.total} ${result.total === 1 ? 'punto' : 'puntos'}`
 
-  const listen = useNarration(`Tu resultado: ${points}. ${t.title} ${t.msg} ${card} Toca Finalizar para terminar.`)
+  const listen = useNarration(N.result(result.score, result.total, t, card))
 
   useEffect(() => {
     if (result.score >= 1) confetti({ particleCount: 220, spread: 120, origin: { y: 0.4 }, colors: ['#DA291C', '#ffffff', '#A9A8A6'] })

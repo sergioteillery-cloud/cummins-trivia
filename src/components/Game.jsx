@@ -5,8 +5,9 @@ import { Check, X } from 'lucide-react'
 import ListenButton from './ListenButton.jsx'
 import { sfx } from '../audio.js'
 import { useNarration } from '../speech.js'
+import * as N from '../narration.js'
 
-const LETTERS = ['A', 'B', 'C', 'D']
+const LETTERS = N.LETTERS
 const HIGHLIGHT_MS = 1300 // se ven las alternativas marcadas antes de pasar a la explicación
 
 // Sin tiempo límite: el juego solo avanza cuando la persona toca un botón
@@ -22,10 +23,8 @@ export default function Game({ questions, onFinish }) {
   const ok = picked === q.correct
   const last = idx + 1 >= questions.length
 
-  const questionText = `Pregunta ${idx + 1} de ${questions.length}. ${q.question} ${q.options.map((o, i) => `Alternativa ${LETTERS[i]}: ${o}.`).join(' ')} Elige tu respuesta tocando la alternativa, o los botones ${q.options.map((_, i) => LETTERS[i]).join(', ')} de abajo.`
-  const feedbackText = `${ok ? '¡Correcto! Ganaste 1 punto.' : 'Respuesta incorrecta.'} La respuesta correcta es: ${q.options[q.correct]}. ${q.explanation || ''} Toca ${last ? 'Ver resultado' : 'Continuar'} para seguir.`
-  const listenQuestion = useNarration(questionText, !answered)
-  const listenFeedback = useNarration(feedbackText, showExp)
+  const listenQuestion = useNarration(N.question(idx + 1, questions.length, q), !answered)
+  const listenFeedback = useNarration(N.feedback(ok, q, last), showExp)
 
   const answer = (i) => {
     if (answered) return

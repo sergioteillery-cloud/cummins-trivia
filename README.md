@@ -22,6 +22,18 @@ Si cambias las preguntas, cambia también `config.bankVersion` para que los disp
 - Botones A/B/C grandes abajo, para responder arriba o abajo según la estatura.
 - Tipografía **Cummins Innova** si está instalada o en `public/fonts/`; si no, Roboto.
 
+## Voz grabada
+
+Los textos que se leen en voz alta se graban con [Piper](https://github.com/rhasspy/piper) (gratuito, local) en `public/voz/`:
+
+```bash
+npm run voz   # requiere Piper y la voz en D:\TriviaVoz (o PIPER_DIR) y ffmpeg
+```
+
+Vuelve a ejecutarlo cuando cambies las preguntas en `public/questions.json`. Lo que no tenga audio grabado se lee con la voz del navegador.
+
+**Créditos de la voz:** "Daniela" (es_AR, calidad alta) de [rhasspy/piper-voices](https://huggingface.co/rhasspy/piper-voices), entrenada con el dataset [OpenSLR 61](https://www.openslr.org/61/). Licencia [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/); los audios generados en `public/voz/` se comparten bajo la misma licencia.
+
 ## Administración
 
 Botón **Admin** (arriba a la derecha), PIN por defecto `1234` (`config.adminPin`).

@@ -4,6 +4,7 @@ import { CircleCheck, CircleHelp, Gift, Hand } from 'lucide-react'
 import LogoHeader from './Logo.jsx'
 import ListenButton from './ListenButton.jsx'
 import { useNarration } from '../speech.js'
+import * as N from '../narration.js'
 
 export default function Attract({ onStart, ready, perGame = 3, prizeMinScore = 1 }) {
   const steps = [
@@ -19,10 +20,7 @@ export default function Attract({ onStart, ready, perGame = 3, prizeMinScore = 1
   }, [steps.length])
 
   // En la pantalla de espera no se lee sola (se repetiría sin fin); se escucha con el botón
-  const listen = useNarration(
-    `Ganando con el poder de la diferencia. Trivia de Cummins Chile. ${steps.map((s) => `${s.title} ${s.text}`).join(' ')} Toca el botón rojo de abajo para jugar.`,
-    false,
-  )
+  const listen = useNarration(N.attract(perGame, prizeMinScore), false)
 
   return (
     <div onPointerDown={ready ? onStart : undefined} style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '140px 70px 80px' }}>

@@ -24,9 +24,10 @@ CAMBIAR PREGUNTAS DESDE ARCHIVO
 - Mas simple: usa el panel Admin > Preguntas.
 
 LECTURA EN VOZ ALTA
-- Con internet, Microsoft Edge ofrece voces "Natural" que suenan humanas (Catalina o Lorenzo, de Chile).
-  El juego las elige automaticamente. Para escoger otra: Admin > Ajustes > Lectura en voz alta > Voz.
-- Sin internet usa las voces basicas instaladas en Windows (suenan mas roboticas).
+- El juego trae la voz "Daniela" grabada: suena natural y funciona sin internet.
+- Las preguntas nuevas o editadas en el admin se leen con la voz del navegador
+  (con internet, Edge usa voces "Natural"; sin internet, las basicas de Windows).
+- Para escoger otra voz: Admin > Ajustes > Lectura en voz alta > Voz.
 - Si no se escucha nada: Configuracion > Hora e idioma > Voz > Agregar voces > Espanol.
 
 TIPOGRAFIA CUMMINS
