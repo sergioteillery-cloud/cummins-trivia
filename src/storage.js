@@ -44,3 +44,8 @@ export const savePerGame = (n) => { try { localStorage.setItem(PER_GAME_KEY, Str
 const USED_KEY = 'cummins_trivia_used'
 export const loadUsed = () => { try { const u = JSON.parse(localStorage.getItem(USED_KEY)); return Array.isArray(u) ? u : [] } catch { return [] } }
 export const saveUsed = (u) => { try { localStorage.setItem(USED_KEY, JSON.stringify(u)) } catch { /* sin storage */ } }
+
+// Pantalla de reposo: minutos sin uso antes de mostrar el logo (0 = desactivada); null = valor de questions.json
+const SAVER_KEY = 'cummins_trivia_saver_min'
+export const loadSaverMinutes = () => { try { const v = localStorage.getItem(SAVER_KEY); return v === null ? null : Math.max(0, parseInt(v, 10) || 0) } catch { return null } }
+export const saveSaverMinutes = (m) => { try { localStorage.setItem(SAVER_KEY, String(m)) } catch { /* sin storage */ } }

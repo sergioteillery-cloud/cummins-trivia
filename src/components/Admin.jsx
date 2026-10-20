@@ -9,7 +9,7 @@ const EMPTY_Q = { question: '', options: ['', '', '', ''], correct: 0, explanati
 const LETTERS = ['A', 'B', 'C', 'D']
 
 // Pantalla oculta: PIN -> leads (CSV) y banco de preguntas (agregar / editar / sacar / habilitar)
-export default function Admin({ pin, bank, perGame, onPerGame, usedCount, onResetDeck, onBank, onRestore, theme, onTheme, collect, onCollect, voice, onVoice, onClose }) {
+export default function Admin({ pin, bank, perGame, onPerGame, usedCount, onResetDeck, onBank, onRestore, theme, onTheme, collect, onCollect, voice, onVoice, saverMinutes, onSaver, onClose }) {
   const [input, setInput] = useState('')
   const [ok, setOk] = useState(false)
   const [tab, setTab] = useState('questions')
@@ -43,7 +43,7 @@ export default function Admin({ pin, bank, perGame, onPerGame, usedCount, onRese
             ))}
           </div>
           {tab === 'questions' && <Questions bank={bank} perGame={perGame} onBank={onBank} onRestore={onRestore} />}
-          {tab === 'theme' && <Settings bank={bank} perGame={perGame} onPerGame={onPerGame} usedCount={usedCount} onResetDeck={onResetDeck} theme={theme} onTheme={onTheme} collect={collect} onCollect={onCollect} voice={voice} onVoice={onVoice} />}
+          {tab === 'theme' && <Settings bank={bank} perGame={perGame} onPerGame={onPerGame} usedCount={usedCount} onResetDeck={onResetDeck} theme={theme} onTheme={onTheme} collect={collect} onCollect={onCollect} voice={voice} onVoice={onVoice} saverMinutes={saverMinutes} onSaver={onSaver} />}
           {tab === 'leads' && <Leads />}
         </>
       )}
@@ -52,7 +52,7 @@ export default function Admin({ pin, bank, perGame, onPerGame, usedCount, onRese
 }
 
 // Selector de tema: se aplica al instante y queda guardado en el dispositivo
-function Settings({ bank, perGame, onPerGame, usedCount, onResetDeck, theme, onTheme, collect, onCollect, voice, onVoice }) {
+function Settings({ bank, perGame, onPerGame, usedCount, onResetDeck, theme, onTheme, collect, onCollect, voice, onVoice, saverMinutes, onSaver }) {
   const activeCount = bank.filter((q) => q.active !== false).length
   const maxPer = Math.max(1, Math.min(10, activeCount))
   const modes = [
@@ -71,6 +71,23 @@ function Settings({ bank, perGame, onPerGame, usedCount, onResetDeck, theme, onT
         <div style={{ fontSize: 30, color: '#A9A8A6', textAlign: 'center', marginTop: 16 }}>Máximo {maxPer} (preguntas habilitadas en el banco: {activeCount}).</div>
         <div style={{ fontSize: 32, color: '#E0E0DF', textAlign: 'center', marginTop: 24 }}>Ciclo sin repetición: <b>{usedCount}</b> de <b>{activeCount}</b> preguntas ya usadas.</div>
         <button onClick={onResetDeck} style={{ display: 'block', margin: '20px auto 0', height: 84, padding: '0 50px', borderRadius: 42, background: '#2A2A2A', color: '#fff', fontSize: 32, fontWeight: 700 }}>Reiniciar ciclo</button>
+      </div>
+      <div style={{ fontSize: 40, fontWeight: 900, marginTop: 10 }}>Pantalla de reposo</div>
+      <div style={{ background: '#1a1a1a', borderRadius: 36, padding: 30, display: 'flex', flexDirection: 'column', gap: 20 }}>
+        <div style={{ fontSize: 32, color: '#A9A8A6' }}>Muestra el logo This Ability sobre fondo blanco cuando nadie toca la pantalla durante este tiempo. Al tocar, se vuelve a la trivia.</div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 50 }}>
+          <button onClick={() => onSaver(Math.max(0, saverMinutes - 1))} aria-label="Menos minutos" style={{ width: 130, height: 130, borderRadius: 40, background: '#2A2A2A', color: '#fff', fontSize: 80, fontWeight: 700 }}>−</button>
+          <div style={{ minWidth: 260, textAlign: 'center' }}>
+            <div style={{ fontSize: saverMinutes ? 120 : 64, fontWeight: 900, lineHeight: 1 }}>{saverMinutes || 'Apagada'}</div>
+            {saverMinutes > 0 && <div style={{ fontSize: 34, color: '#A9A8A6' }}>{saverMinutes === 1 ? 'minuto' : 'minutos'}</div>}
+          </div>
+          <button onClick={() => onSaver(Math.min(60, saverMinutes + 1))} aria-label="Más minutos" style={{ width: 130, height: 130, borderRadius: 40, background: '#DA291C', color: '#fff', fontSize: 80, fontWeight: 700 }}>+</button>
+        </div>
+        <div style={{ display: 'flex', gap: 16 }}>
+          {[[0, 'Apagar'], [5, '5 min'], [8, '8 min'], [15, '15 min']].map(([m, l]) => (
+            <button key={m} onClick={() => onSaver(m)} style={{ ...smallBtn(saverMinutes === m ? '#DA291C' : '#2A2A2A'), height: 90, fontSize: 34 }}>{l}</button>
+          ))}
+        </div>
       </div>
       <div style={{ fontSize: 40, fontWeight: 900, marginTop: 10 }}>Lectura en voz alta</div>
       <div style={{ background: '#1a1a1a', borderRadius: 36, padding: 30, display: 'flex', flexDirection: 'column', gap: 20 }}>

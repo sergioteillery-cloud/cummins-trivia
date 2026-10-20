@@ -10,7 +10,7 @@
     "registerResetSeconds": 90,
     "playingResetSeconds": 300,
     "noPrizeText": "¡Te esperamos en una próxima oportunidad!",
-    "screensaverSeconds": 300
+    "screensaverSeconds": 480
   },
   "questions": [
     {
