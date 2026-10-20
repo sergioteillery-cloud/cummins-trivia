@@ -32,8 +32,7 @@ LECTURA EN VOZ ALTA
 - Si no se escucha nada: Configuracion > Hora e idioma > Voz > Agregar voces > Espanol.
 
 TIPOGRAFIA CUMMINS
-- Si la fuente Cummins Innova esta instalada en el totem, el juego la usa automaticamente.
-- Si no, copia los archivos de la fuente a "apponts" (ver LEEME dentro de esa carpeta). Sin ellos usa Roboto.
+- El paquete ya incluye la fuente Cummins Innova (carpeta app\fonts). No hace falta instalar nada.
 
 RECOMENDACIONES PARA EL TOTEM
 - Desactiva suspension de pantalla y de equipo (Configuracion > Sistema > Energia).
