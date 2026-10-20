@@ -24,9 +24,10 @@ CAMBIAR PREGUNTAS DESDE ARCHIVO
 - Mas simple: usa el panel Admin > Preguntas.
 
 LECTURA EN VOZ ALTA
-- El juego lee cada pantalla con las voces en espanol de Windows (funcionan sin internet).
-- Si no se escucha: Configuracion > Hora e idioma > Voz > Agregar voces > Espanol.
-- Se activa o desactiva en Admin > Ajustes > Lectura en voz alta.
+- Con internet, Microsoft Edge ofrece voces "Natural" que suenan humanas (Catalina o Lorenzo, de Chile).
+  El juego las elige automaticamente. Para escoger otra: Admin > Ajustes > Lectura en voz alta > Voz.
+- Sin internet usa las voces basicas instaladas en Windows (suenan mas roboticas).
+- Si no se escucha nada: Configuracion > Hora e idioma > Voz > Agregar voces > Espanol.
 
 TIPOGRAFIA CUMMINS
 - Si la fuente Cummins Innova esta instalada en el totem, el juego la usa automaticamente.

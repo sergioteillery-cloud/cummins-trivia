@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Check, Download, Pencil, Plus, RotateCcw, Trash2, X } from 'lucide-react'
 import { THEMES } from '../theme.js'
-import { speak, speechSupported } from '../speech.js'
+import { getChosenName, getVoiceName, isNatural, listVoices, onVoicesChanged, setVoiceName, speak, speechSupported } from '../speech.js'
 import { clearLeads, downloadCsv, leadsToCsv, loadLeads } from '../storage.js'
 
 const EMPTY_Q = { question: '', options: ['', '', '', ''], correct: 0, explanation: '', active: true }
@@ -78,8 +78,9 @@ function Settings({ bank, perGame, onPerGame, usedCount, onResetDeck, theme, onT
         <div style={{ display: 'flex', gap: 20 }}>
           <button onClick={() => onVoice(true)} style={{ ...smallBtn(voice ? '#30A566' : '#2A2A2A'), height: 100, fontSize: 36 }}>{voice && <Check size={40} />} Activada</button>
           <button onClick={() => onVoice(false)} style={{ ...smallBtn(!voice ? '#DA291C' : '#2A2A2A'), height: 100, fontSize: 36 }}>Desactivada</button>
-          <button onClick={() => speak('Hola, esta es la voz de la trivia de Cummins Chile.')} style={{ ...smallBtn('#2A2A2A'), height: 100, fontSize: 36 }}>Probar voz</button>
+          <button onClick={() => speak(SAMPLE)} style={{ ...smallBtn('#2A2A2A'), height: 100, fontSize: 36 }}>Probar voz</button>
         </div>
+        {voice && <VoicePicker />}
       </div>
       <div style={{ fontSize: 40, fontWeight: 900, marginTop: 10 }}>Modo de juego</div>
       {modes.map((m) => (
@@ -113,6 +114,43 @@ function Settings({ bank, perGame, onPerGame, usedCount, onResetDeck, theme, onT
     </div>
   )
 }
+
+const SAMPLE = 'Hola, te damos la bienvenida a la trivia de Cummins Chile. Ganando con el poder de la diferencia.'
+
+// Selector de voz: las "Natural" suenan más humanas (requieren internet); las instaladas funcionan sin conexión
+function VoicePicker() {
+  const [voices, setVoices] = useState(listVoices())
+  const [, force] = useState(0)
+  useEffect(() => onVoicesChanged(() => setVoices(listVoices())), [])
+  const current = getVoiceName()
+  const auto = !getChosenName()
+  const choose = (name) => { setVoiceName(name); force((n) => n + 1); if (name) speak(SAMPLE) }
+  if (!voices.length) return <div style={{ fontSize: 30, color: '#DA291C' }}>No hay voces en español en este equipo.</div>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+      <div style={{ fontSize: 34, fontWeight: 700, marginTop: 6 }}>Voz</div>
+      <button onClick={() => choose(null)} style={voiceRow(auto)}>
+        <span>Automática <span style={{ color: '#A9A8A6', fontWeight: 400 }}>(la más natural disponible)</span></span>
+        {auto && <Check size={40} color="#30A566" strokeWidth={4} />}
+      </button>
+      {voices.map((v) => {
+        const natural = isNatural(v)
+        const on = !auto && current === v.name
+        return (
+          <button key={v.name} onClick={() => choose(v.name)} style={voiceRow(on)}>
+            <span style={{ display: 'flex', flexDirection: 'column', gap: 6, textAlign: 'left' }}>
+              <span>{v.name.replace(/^Microsoft /, '').replace(/ - .*$/, '')} <span style={{ color: '#A9A8A6', fontWeight: 400 }}>· {v.lang}</span></span>
+              <span style={{ fontSize: 26, fontWeight: 700, color: natural ? '#30A566' : '#A9A8A6' }}>{natural ? 'Natural · requiere internet' : 'Básica · funciona sin internet'}</span>
+            </span>
+            {on && <Check size={40} color="#30A566" strokeWidth={4} />}
+          </button>
+        )
+      })}
+      {!voices.some(isNatural) && <div style={{ fontSize: 28, color: '#F5A524', lineHeight: 1.3 }}>Este navegador no ofrece voces naturales. Ábrelo en Microsoft Edge con internet para usar las voces Catalina o Lorenzo (Chile).</div>}
+    </div>
+  )
+}
+const voiceRow = (on) => ({ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, padding: '18px 26px', borderRadius: 24, background: '#2A2A2A', border: on ? '4px solid #30A566' : '4px solid transparent', color: '#fff', fontSize: 32, fontWeight: 700, textAlign: 'left' })
 
 function Questions({ bank, perGame, onBank, onRestore }) {
   const [editing, setEditing] = useState(null) // { index (-1 = nueva), q }
