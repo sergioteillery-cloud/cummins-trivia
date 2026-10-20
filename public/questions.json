@@ -9,7 +9,8 @@
     "bankVersion": "2026-10-19-expoinclusion",
     "registerResetSeconds": 90,
     "playingResetSeconds": 300,
-    "noPrizeText": "¡Te esperamos en una próxima oportunidad!"
+    "noPrizeText": "¡Te esperamos en una próxima oportunidad!",
+    "screensaverSeconds": 300
   },
   "questions": [
     {

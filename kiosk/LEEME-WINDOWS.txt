@@ -34,6 +34,11 @@ LECTURA EN VOZ ALTA
 TIPOGRAFIA CUMMINS
 - El paquete ya incluye la fuente Cummins Innova (carpeta app\fonts). No hace falta instalar nada.
 
+PANTALLA DE REPOSO
+- Si nadie toca la pantalla durante 5 minutos, aparece el logo This Ability sobre fondo blanco.
+- Al tocar la pantalla se vuelve a la trivia tal como estaba.
+- El tiempo se cambia en "app\questions.json" (screensaverSeconds, en segundos; 0 la desactiva).
+
 RECOMENDACIONES PARA EL TOTEM
 - Desactiva suspension de pantalla y de equipo (Configuracion > Sistema > Energia).
 - Si el totem es tactil, ajusta la orientacion a vertical (Configuracion > Pantalla > Orientacion).
