@@ -9,6 +9,7 @@ import Game from './components/Game.jsx'
 import Result from './components/Result.jsx'
 import Admin from './components/Admin.jsx'
 import Screensaver from './components/Screensaver.jsx'
+import HomeButton from './components/HomeButton.jsx'
 import { isMuted, setMuted, sfx } from './audio.js'
 import { isVoiceEnabled, setVoiceEnabled, stopSpeech } from './speech.js'
 import { ThemeContext, loadTheme, saveTheme } from './theme.js'
@@ -130,6 +131,8 @@ export default function App() {
         </AnimatePresence>
 
         {/* Botón discreto de administración (arriba a la derecha; pide PIN) y mute visible para organizadores */}
+        {/* Volver al inicio en cualquier pantalla del juego (registro, preguntas, resultado) */}
+        {state.screen !== 'idle' && <HomeButton key={state.screen} onHome={reset} />}
         <button onClick={() => setAdmin(true)} style={{ position: 'absolute', top: 24, right: 24, zIndex: 50, height: 88, padding: '0 36px', borderRadius: 44, background: 'var(--chip)', color: 'var(--chip-fg)', fontSize: 34, fontWeight: 500 }}>Admin</button>
         <button aria-label={muted ? 'Activar sonido' : 'Silenciar'} onClick={toggleMute} style={{ position: 'absolute', top: 24, left: 24, zIndex: 50, width: 88, height: 88, borderRadius: 28, background: 'var(--chip)', color: 'var(--chip-fg)', display: 'grid', placeItems: 'center' }}>
           {muted ? <VolumeX size={44} /> : <Volume2 size={44} />}

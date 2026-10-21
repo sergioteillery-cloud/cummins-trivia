@@ -34,6 +34,10 @@ LECTURA EN VOZ ALTA
 TIPOGRAFIA CUMMINS
 - El paquete ya incluye la fuente Cummins Innova (carpeta app\fonts). No hace falta instalar nada.
 
+VOLVER AL INICIO
+- Durante el juego hay un boton con una casita arriba a la izquierda.
+- Tocalo dos veces seguidas para volver a la pantalla de inicio (el primer toque pide confirmar).
+
 PANTALLA DE REPOSO
 - Si nadie toca la pantalla durante 8 minutos, aparece el logo This Ability sobre fondo blanco.
 - Al tocar la pantalla se vuelve a la trivia tal como estaba.

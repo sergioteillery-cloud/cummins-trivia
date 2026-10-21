@@ -20,7 +20,7 @@ Si cambias las preguntas, cambia también `config.bankVersion` para que los disp
 - Lectura en voz alta de cada pantalla (Web Speech API, voces en español del equipo) y botón **Repetir audio**.
 - Sin límite de tiempo: el juego avanza solo al tocar un botón.
 - Botones A/B/C grandes abajo, para responder arriba o abajo según la estatura.
-- Tipografía **Cummins Innova** si está instalada o en `public/fonts/`; si no, Roboto.
+- Tipografía **Cummins Innova** (`public/fonts/`, propiedad de Cummins Inc.); si no carga, Roboto.
 
 ## Voz grabada
 

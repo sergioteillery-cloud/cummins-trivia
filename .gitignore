@@ -6,5 +6,3 @@ dist-artifact
 kiosk-dist
 .env*
 !.env.example
-# Tipografía corporativa Cummins Innova: no se publica en el repositorio público
-public/fonts/*.woff2

@@ -1,5 +1,5 @@
 // Tipografía de marca Cummins Innova (Text para lectura, Display para títulos).
-// Se carga desde public/fonts/ o, si está instalada en el equipo, directamente desde el sistema (local()).
+// Se carga desde public/fonts/ (web y paquete Windows) o, si está instalada en el equipo, desde el sistema (local()).
 // Si no hay ninguna de las dos, se usa Roboto (alternativa aprobada por el manual de marca).
 const FACES = [
   // [peso CSS, archivo, nombres locales]
